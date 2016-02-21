@@ -1,5 +1,9 @@
 $:.unshift File.dirname(__FILE__)
 
+require 'json'
+require 'etsymon/request'
+require 'etsymon/response'
+require 'etsymon/shop'
 require 'etsymon/version'
 
 

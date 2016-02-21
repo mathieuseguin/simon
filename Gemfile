@@ -1,4 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'slop'
-gem 'rspec'
+
+group :test do
+  gem 'rspec'
+  gem 'webmock'
+end
