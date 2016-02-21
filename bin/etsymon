@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require 'slop'
+require File.dirname(__FILE__) + '/../lib/etsymon.rb'
+
+opts = Slop.parse do |o|
+  o.string '-a', '--api-key', "your Etsy's API key"
+  o.bool '-v', '--verbose', 'enable verbose mode'
+  o.on '--version', 'print the version' do
+    puts Etsymon::VERSION
+    exit
+  end
+end
+
+if opts[:api_key]
+  Etsymon.api_key = opts[:api_key]
+else
+  puts "API key required. Please specify it using 'etsy --api-key YOUR_KEY'"
+  exit
+end
