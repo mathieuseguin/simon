@@ -1,10 +1,10 @@
 $:.unshift File.dirname(__FILE__)
 
 require 'json'
-require 'etsymon/request'
-require 'etsymon/response'
-require 'etsymon/shop'
-require 'etsymon/version'
+
+['model', 'listing', 'request', 'response', 'shop', 'version'].each do |file|
+  require "etsymon/#{file}"
+end
 
 
 ##
@@ -13,6 +13,9 @@ require 'etsymon/version'
 # Use Etsy.api_key to specify your API key
 
 module Etsymon
+  class Error < RuntimeError; end
+  class ShopNotFound < RuntimeError; end
+
   HOST = 'openapi.etsy.com'
 
   def self.api_key

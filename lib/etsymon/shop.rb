@@ -1,27 +1,38 @@
-##
-# Etsy API wrapper for the Shop model
-
 module Etsymon
+
+  ##
+  # Etsy API wrapper for the Shop model
+
   class Shop
+    include Model
+
     def initialize(data)
       @data = data
     end
 
     ##
-    # Syntactic sugar for using the data fields using instance methods
+    # Get all the listings for the curent shop
 
-    def method_missing(method_sym)
-      @data[method_sym.to_s] rescue nil
+    def listings
+      @listings ||= Listing.find_all_by_shop_id(shop_id)
     end
+
+    alias_method :get_listings, :listings
+
 
     class << self
       ##
       # Find a shop by its name
-      # Returns an Etsy::Shop object
+      # Returns an Etsymon::Shop object
 
       def find_by_name(name)
-        data = Request.get('/shops', shop_name: name).json
-        data['results'].any? ? self.new(data['results'].first) : nil
+        res = Request.get('/shops', shop_name: name)
+
+        if res.code == '404'
+          raise ShopNotFound, "Shop with name: #{name} was not found."
+        elsif res.code == '200'
+          res.json['results'].any? ? self.new(res.json['results'].first) : nil
+        end
       end
     end
   end

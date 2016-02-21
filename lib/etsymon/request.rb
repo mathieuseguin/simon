@@ -4,8 +4,6 @@ module Etsymon
   # HTTP Client wrapper for the Etsy API V2 client
 
   class Request
-    attr_reader :base_path
-
     ##
     # Request constructor
     #
@@ -52,7 +50,7 @@ module Etsymon
     # Returns a URL string
 
     def url
-      url = "#{base_path}#{@path}?api_key=#{Etsymon.api_key}"
+      url = "#{@base_path}#{@path}?api_key=#{Etsymon.api_key}"
       url += @params.map{|k,v| "&#{k}=#{v}" }.join('')
       url
     end

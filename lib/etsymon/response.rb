@@ -16,6 +16,13 @@ module Etsymon
       @raw_response.body
     end
 
+    ##
+    # Returns the HTTP code of the response.
+
+    def code
+      @raw_response.code
+    end
+
 
     ##
     # Returns the parsed response body.
