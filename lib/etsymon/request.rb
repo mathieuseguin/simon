@@ -27,7 +27,7 @@ module Etsymon
 
     def client
       if @client.nil?
-        @client = Net::HTTP.new(Etsymon::HOST, @use_ssl ? 443 : 80)
+        @client = ::Net::HTTP.new(Etsymon::HOST, @use_ssl ? 443 : 80)
         @client.use_ssl = @use_ssl
       end
 

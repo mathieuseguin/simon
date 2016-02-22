@@ -6,6 +6,7 @@ require File.dirname(__FILE__) + '/../lib/etsymon.rb'
 opts = Slop.parse do |o|
   o.string '-a', '--api-key', "your Etsy's API key"
   o.bool '-v', '--verbose', 'enable verbose mode'
+  o.bool '-ecom', '--activate-ecommerce-stop-words'
   o.on '--version', 'print the version' do
     puts Etsymon::VERSION
     exit
@@ -17,4 +18,30 @@ if opts[:api_key]
 else
   puts "API key required. Please specify it using 'etsy --api-key YOUR_KEY'"
   exit
+end
+
+Etsymon::Term.activate_ecommerce_stop_words = (opts[:activate_ecommerce_stop_words] || true)
+
+# Get all the shops specified in arguments, download their listing
+# and search for the top 5 terms for each shop.
+puts "Retrieving listing for:"
+shops = opts.arguments.map do |shop_name|
+  shop = Etsymon::Shop.find_by_name(shop_name)
+  if shop
+    print "  - #{shop_name}..."
+    shop.get_listings
+    print " done.\n"
+  else
+    puts "  - Could not find shop: #{shop_name}"
+  end
+
+  shop
+end
+
+puts "\nComputing top terms:"
+shops.compact.each do |shop|
+  terms = shop.top_terms(count: 5)
+  print "  - Top terms for '#{shop.shop_name}': "
+  print terms.map { |t| "#{t[0]} (#{t[1]})" }.join(', ')
+  print "\n"
 end

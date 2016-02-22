@@ -20,6 +20,24 @@ module Etsymon
     alias_method :get_listings, :listings
 
 
+    ##
+    # Get the top terms from specified fields of all the listings for the current shop
+    # default fields: title, description
+
+    def top_terms(opts = {})
+      opts = {fields: ['title', 'description'], count: 5}.merge(opts)
+      term = Term.new
+
+      listings.each do |listing|
+        opts[:fields].each do |field|
+          term.add_sentence(listing.send(field))
+        end
+      end
+
+      term.top(opts[:count])
+    end
+
+
     class << self
       ##
       # Find a shop by its name

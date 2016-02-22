@@ -1,8 +1,11 @@
 $:.unshift File.dirname(__FILE__)
 
 require 'json'
+require 'net/http'
+require 'tokenizer'
+require 'htmlentities'
 
-['model', 'listing', 'request', 'response', 'shop', 'version'].each do |file|
+['model', 'listing', 'request', 'response', 'shop', 'term', 'version'].each do |file|
   require "etsymon/#{file}"
 end
 
