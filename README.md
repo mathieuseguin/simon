@@ -42,16 +42,16 @@ Retrieving listing for:
   - MysticMoons... done.
 
 Computing top terms:
-  - Top terms for 'ThinkPinkBows': headband (2879), baby (1506), lace (1137), petti (920), like (908)
-  - Top terms for 'bertiescloset': laptop (2003), case (1274), fabric (1250), sleeve (1120), ipad (963)
-  - Top terms for 'Thevelvetacorn': patterns (1069), child (616), adult (594), toddler (537), help (469)
-  - Top terms for 'SugarRobot': edible (691), butterflies (551), food (493), free (396), cake (375)
-  - Top terms for 'janinekingdesigns': bag (3286), fabric (1670), strap (1623), zipper (1603), black (1464)
-  - Top terms for 'Cyberoptix': tie (8047), ink (6066), black (4016), boxes (3516), gift (3148)
-  - Top terms for 'DiddlebugsAndMe': hair (3308), clip (2279), bow (1277), girls (795), ribbon (677)
-  - Top terms for 'collageOrama': print (4653), prints (3513), page (3193), book (3099), dictionary (1999)
-  - Top terms for 'ThingsVerySpecial': tees (28602), chart (21032), child (18430), large (17968), white (17356)
-  - Top terms for 'MysticMoons': gold (2080), mystic (2014), moon (2005), hoop (1932), precious (1821)
+  - Top terms for 'ThinkPinkBows': headband (3448), baby (1518), flower (1448), romper (1318), girl (1263)
+  - Top terms for 'bertiescloset': laptop (2084), case (1863), fabric (1256), sleeve (1119), cover (1028)
+  - Top terms for 'Thevelvetacorn': child (616), adult (599), toddler (537), velvet (384), acorn (384)
+  - Top terms for 'SugarRobot': edible (689), butterfly (665), food (491), cake (467), nut (396)
+  - Top terms for 'janinekingdesigns': bag (3358), fabric (2634), strap (1778), zipper (1690), black (1431)
+  - Top terms for 'Cyberoptix': tie (8041), ink (6107), black (4010), box (3594), note (3459)
+  - Top terms for 'DiddlebugsAndMe': hair (3273), clip (2697), bow (1772), girl (835), ribbon (670)
+  - Top terms for 'collageOrama': print (8187), book (3950), dictionary (2004), image (1715), unique (1684)
+  - Top terms for 'ThingsVerySpecial': tee (39868), child (27749), large (17961), white (17350), age (14949)
+  - Top terms for 'MysticMoons': hoop (2695), gold (2078), moon (2012), mystic (2010), preciou (1817)
 ```
 
 Shops for the example:
