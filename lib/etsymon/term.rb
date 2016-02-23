@@ -2,23 +2,20 @@ module Etsymon
 
   ##
   # Fun happens here!
-  # Add words or full sentences using add_words or add_sentence respectively then retrieve the top n terms
+  # Add tokens or full sentences using add_tokens or add_sentence respectively then retrieve the top n terms
 
   class Term
-    attr_reader :words
+    attr_reader :tokens
 
     # (de)activate the indexation of ecommerce-related words
     @@activate_ecommerce_stop_words = false
-
-    STOP_WORDS = File.readlines(File.dirname(__FILE__) + '/../dict/common.txt').map(&:chomp!)
-    STOP_WORDS_ECOMMERCE = File.readlines(File.dirname(__FILE__) + '/../dict/etsy.txt').map(&:chomp!)
 
     @@tokenizer = Tokenizer::WhitespaceTokenizer.new
     @@html_entities = HTMLEntities.new
 
 
     def initialize
-      @words = {}
+      @tokens = {}
     end
 
 
@@ -27,19 +24,18 @@ module Etsymon
 
     def add_sentence(sentence)
       tokens = self.class.extract_tokens(sentence)
-      add_words(tokens) if tokens.any?
+      add_tokens(tokens) if tokens.any?
     end
 
 
     ##
-    # Add words to the dictionary
+    # Add tokens to the dictionary
 
-    def add_words(words)
-      words -= STOP_WORDS
-      words -= STOP_WORDS_ECOMMERCE if self.class.activate_ecommerce_stop_words
+    def add_tokens(tokens)
+      tokens -= self.class.stop_words
 
-      words.each do |w|
-        @words[w] = @words.fetch(w, 0).to_i + 1
+      tokens.each do |w|
+        @tokens[w] = @tokens.fetch(w, 0).to_i + 1
       end
     end
 
@@ -49,7 +45,7 @@ module Etsymon
     #
 
     def top(count)
-      @words.sort_by{ |_key, value| value * -1 }.first(count)
+      @tokens.sort_by{ |_key, value| value * -1 }.first(count)
     end
 
     class << self
@@ -67,6 +63,9 @@ module Etsymon
       def extract_tokens(sentence)
         text = @@html_entities.decode(sentence)
 
+        # remove urls
+        text.gsub!(/http(?:s)?:\/\/[\w\.:\/]+/, '')
+
         # replace multiple-length spaces by one space
         text.gsub!(/\s+/, ' ')
 
@@ -79,7 +78,19 @@ module Etsymon
         text.downcase!
         text.strip!
 
-        @@tokenizer.tokenize(text)
+        @@tokenizer.tokenize(text).map(&:singularize)
+      end
+
+      def stop_words
+        if @stop_words.nil?
+          common_dict = File.dirname(__FILE__) + '/../dict/common.txt'
+          etsy_dict = File.dirname(__FILE__) + '/../dict/etsy.txt'
+
+          @stop_words = File.readlines(common_dict).map(&:chomp!)
+          @stop_words += File.readlines(etsy_dict).map(&:chomp!) if activate_ecommerce_stop_words
+        end
+
+        @stop_words
       end
     end
   end

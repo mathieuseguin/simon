@@ -4,6 +4,7 @@ require 'json'
 require 'net/http'
 require 'tokenizer'
 require 'htmlentities'
+require 'active_support/inflector'
 
 ['model', 'listing', 'request', 'response', 'shop', 'term', 'version'].each do |file|
   require "etsymon/#{file}"
